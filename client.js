@@ -1,3 +1,5 @@
+const name = 'Name: AN';
+
 const net = require('net');
 const connect = function() {
   const conn = net.createConnection({ 
@@ -5,10 +7,17 @@ const connect = function() {
     port: 50542
   });
   // interpret incoming data as text
-  conn.setEncoding('utf8'); 
+  conn.setEncoding('utf8');
   conn.on('data', (data) => {
     console.log(data);
+    
   })
+
+  conn.on('connect', () => {
+    console.log("Successfully connected to game server");
+    conn.write(`${name}`)
+  })
+
 
   return conn;
 }
